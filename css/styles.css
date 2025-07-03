@@ -97,3 +97,22 @@ header img {
     input:checked + .slider:before {
       transform: translateX(19px);
     }
+
+/* BREAKPOINT TABLET */
+
+@media (min-width: 768px) {
+    .toggle-container {
+        top: 96%;
+        left: 85%;
+    }
+
+    .social-icons {
+        top: 96%;
+    }
+}
+
+/* BREAKPOINT Desktop */
+
+@media (min-width: 1024px) {
+    
+}
