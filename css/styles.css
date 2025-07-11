@@ -1,44 +1,220 @@
 * {
-font-family: "Quicksand", sans-serif;;
+font-family: "Quicksand", sans-serif;
+color: #d46652;
+scroll-behavior: smooth; 
+scroll-margin-top: 55px;
 }
 
-/* -----HEADER----- */
-header {
-
-    
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: white;
+    margin: 0;
 }
+
+section {
+    margin: 65px auto;
+}
+    /* ________________ */
+    /* ----HEADER----- */
+    /* ________________*/
 
 h1 {
     font-weight: 400;
     display: inline-block;
     margin: 8px auto 8px 5px;
+    grid-area: h1;
+}
+
+h1 a {
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "h1 burger"
+        ". menu";
+    background-color: white;
+}
+
+.burger-menu {
+    grid-area: burger;
+    justify-self: end;
+}
+
+.fa-bars {
+    cursor: pointer;
 }
 
 header i {
-    float: right;
     margin:  20px 10px 20px auto;
     font-size: 1.3rem;
 }
 
 header li a {
     text-decoration: none;
+    font-weight: 500;
 }
 
 header li {
     list-style-type: none;
+    padding: 10px 10px;
+    text-align: center;
 }
 
 header ul {
     display: none;
+    grid-area: menu;
+    justify-self: end;
+    background: lightgrey;
+    margin: 0;
+    padding: 20px;
 }
 
-header img {
+header ul.open {
+    display: block;
+}
+
+    /* _____________ */
+    /* ----MAIN----- */
+    /* _____________ */
+
+main {
+    margin: auto 50px;
+}
+
+#welcome {
+    text-align: center;
+    height: 59vh;
+    margin: 50% 0;
+    
+}
+
+#welcome h2 {
+    font-size: 1.7rem;
+}
+
+#welcome i {
+    font-size: 2rem;
+}
+
+.i-am {
+    font-size: 2rem;
+}
+    /* WORK */
+
+#work {
+    margin: 20px auto;
+}
+
+.work-card-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.work-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* spaces content vertically */
+    border-radius: 7px;
+    box-shadow: 0 0 7px grey;
+    padding: 10px;
+    overflow: auto;
+    background-color: #efefef;
+}
+
+.work-card img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}    
+
+/* .work-card i {
+    font-size: 1.3rem;
+} */
+
+.icon-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.icon-group i {
+    font-size: 1.3rem;
+}
+
+
+.link-button {
+    padding: 14px 25px;
+    background-color: rgb(158, 1, 61);
+    color: white;
+    text-align: center;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+
+    /* ABOUT ME */
+
+#about-me img {
+    max-height: 250px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+}
+
+#about-me p {
+    text-align: center;
+}
+
+/* COMING SOON */
+
+#illustration h2,
+#threed h2 {
+    margin: 250px auto;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+    /* _____________ */
+    /* ----FOOTER----- */
+    /* _____________ */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: lightgray;
+}
+
+footer img {
     max-width: 30px;
 }
 
+.menu-container {
+    display: flex;
+    justify-content: space-between;
+    width: 97%;
+    margin: 10px 0;
+}
+
 .social-icons {
-    position: fixed;
-    top: 94%;
+    min-width: 100px;
+}
+
+.social-icons a:last-of-type img{
+    max-height: 25px;
+    margin-bottom: 5px;
+    margin-left: 5px;
 }
 
 /* -----Toggle Switch----- */
@@ -47,13 +223,11 @@ header img {
       align-items: center;
       font-family: sans-serif;
       gap: 5px;
-      position: fixed;
-      top: 94%;
-      left: 70%;
     }
 
 .toggle-container span {
-    font-size: .9rem;
+    font-size: 1rem;
+    color: rgb(158, 1, 61);
 }
     
     .switch {
@@ -76,7 +250,7 @@ header img {
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: white;
       transition: 0.4s;
       border-radius: 34px;
     }
@@ -87,8 +261,8 @@ header img {
       height: 20px;
       width: 20px;
       left: 3px;
-      bottom: 2.48px;
-      background-color: white;
+      bottom: 2px;
+      background-color: #f5664c;
       transition: 0.4s;
       border-radius: 50%;
     }
@@ -101,6 +275,8 @@ header img {
 /* BREAKPOINT TABLET */
 
 @media (min-width: 768px) {
+
+    /* ----HEADER---- */
     .toggle-container {
         top: 96%;
         left: 85%;
@@ -109,10 +285,89 @@ header img {
     .social-icons {
         top: 96%;
     }
+
+    .burger-menu {
+        display: none;
+    }
+
+    header ul {
+        display: block;
+        grid-area: burger;
+        justify-self: stretch;
+        background-color: white;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+    }
+    
+    header li {
+        display: inline;
+    }
+
+    /* ----MAIN----- */
+
+    .work-card-wrapper {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about-me-wrapper {
+        display: flex;
+        gap: 20px;
+        background-color: #efefef;
+        border-radius: 0 5px 5px 0;
+        padding-right: 20px;
+    }
+
+    #about-me p {
+        padding-right: 15px;
+        text-align: left;
+        margin: auto;
+    }
+
+    #about-me img {
+        border-radius: 5px 0 0 5px;
+        height: 100%;
+    }
+
+    #welcome {
+        height: 45vh;
+        margin: 30% 0;
+    }
+
 }
 
 /* BREAKPOINT Desktop */
 
 @media (min-width: 1024px) {
-    
+    /* .work-card-wrapper {
+        grid-template-columns: 1fr 1fr 1fr;
+    } */
+
+    #welcome {
+        height: 40vh;
+        margin: 20% auto;
+    }
+}
+
+
+    /* __________________ */
+    /* ----ANIMATION----- */
+    /* ___________________*/
+
+.video-card {
+    max-width: 100%;
+
+}
+
+.video-card iframe {
+    max-width: 100%;
+}
+
+/* BREAKPOINT TABLET */
+
+@media (min-width: 768px) {
+    #videos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 }
