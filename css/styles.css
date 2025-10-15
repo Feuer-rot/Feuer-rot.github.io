@@ -197,14 +197,6 @@ main {
     min-width: 200px;
 }
 
-/* COMING SOON */
-
-#illustration h2,
-#threed h2 {
-    margin: 250px auto;
-    text-align: center;
-    font-size: 2.5rem;
-}
 
 /* ILLUSTRATION */
 
@@ -225,6 +217,11 @@ main {
 
 .illu-container .small-img {
     max-width: 49%;
+}
+
+.illu-text {
+    padding: 15px;
+    align-self: center;
 }
 
 /*ANIMATION*/
@@ -269,6 +266,7 @@ main {
 .container3D {
   width: 90%;
   height: 70vh;
+  margin: 119px auto 0;
 }
 
 
