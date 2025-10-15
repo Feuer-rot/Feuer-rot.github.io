@@ -215,11 +215,6 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Start
-loadModel(models[currentIndex]);
-animate();
-
-const loader = new GLTFLoader();
 loader.load(
   "./models/taube/scene.gltf",
   gltf => {
@@ -231,3 +226,9 @@ loader.load(
   undefined,
   err => console.error("❌ Fehler beim Laden:", err)
 );
+
+// Start
+loadModel(models[currentIndex]);
+animate();
+
+
