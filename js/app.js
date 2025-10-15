@@ -135,6 +135,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
+camera.position.set(0, 1, 3);
+
 
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -142,14 +144,16 @@ renderer.setPixelRatio(window.devicePixelRatio);
 document.querySelector(".container3D").appendChild(renderer.domElement);
 
 // Lights
-const topLight = new THREE.DirectionalLight(0xffffff, 1);
-topLight.position.set(500, 500, 500);
-scene.add(topLight);
+scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 
-const ambientLight = new THREE.AmbientLight(0x404040, 3);
-scene.add(ambientLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+dirLight.position.set(10, 10, 10);
+scene.add(dirLight);
 
-camera.position.set(0, 1, 8);
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+hemiLight.position.set(0, 20, 0);
+scene.add(hemiLight);
+
 
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -180,7 +184,9 @@ function loadModel(name) {
     `./models/${name}/scene.gltf`,
     gltf => {
       currentModel = gltf.scene;
-      currentModel.position.set(0, -1.5, 0);
+      currentModel.position.set(0, 0, 0);
+      currentModel.scale.set(5, 5, 5); // vergrößert das Modell testweise
+
       scene.add(currentModel);
       console.log(`Loaded: ${name}`);
     },
