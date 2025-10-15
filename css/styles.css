@@ -227,6 +227,76 @@ main {
     max-width: 49%;
 }
 
+/*ANIMATION*/
+
+.video-thumbnail {
+  position: relative;
+  display: inline-block;
+  min-width: 90%;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.03);
+}
+
+.video-thumbnail img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 2rem;
+  padding: 10px 16px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* 3D */
+
+.container3D {
+  width: 100%;
+  height: 80vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #111, #000);
+}
+
+.controls3D {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.controls3D button {
+  background: none;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.controls3D button:hover {
+  background: white;
+  color: black;
+}
+
+
     /* _____________ */
     /* ----FOOTER----- */
     /* _____________ */

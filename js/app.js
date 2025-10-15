@@ -88,32 +88,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ____________________________
-// // IMG TO VIDEOPLAYER 
+// // IMG TO VIDEOPLAYER
 // ____________________________
 
 document.addEventListener("DOMContentLoaded", () => {
-        const videoImg = document.querySelectorAll("video-thumbnail");
-        const video = document.querySelectorAll(iframe);
+  const thumbnails = document.querySelectorAll(".video-thumbnail");
 
+  thumbnails.forEach(thumbnail => {
+    thumbnail.addEventListener("click", () => {
+      const videoUrl = thumbnail.getAttribute("data-video");
 
-    }
-   );
+      // Create the iframe dynamically
+      const iframe = document.createElement("iframe");
+      iframe.src = videoUrl;
+      iframe.frameBorder = "0";
+      iframe.allow = "autoplay; encrypted-media";
+      iframe.allowFullscreen = true;
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.borderRadius = "12px";
+
+      // Replace thumbnail with the iframe
+      thumbnail.innerHTML = "";
+      thumbnail.appendChild(iframe);
+    });
+  });
+});
+
 
 // ____________________________
-// // THREE.JS 3D MODELS 
+// THREE.JS 3D MODELS 
 // ____________________________
 
-// Import the THREE.js library
+// ____________________________
+// // THREE.JS 3D SLIDESHOW
+// ____________________________
+
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
-// To allow for the camera to move around the scene
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
-// To allow for importing the .gltf file
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
-// Create a Three.JS Scene
 const scene = new THREE.Scene();
-
-// Create a new camera with positions and angles
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -121,86 +136,85 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-// Keep the 3D object on a global variable so we can access it later
-let object;
-
-// OrbitControls allow the camera to move around the scene
-let controls;
-
-// Set which object to render
-const objToRender = "dino";
-
-// Instantiate a loader for the .gltf file
-const loader = new GLTFLoader();
-
-// Load the file
-loader.load(
-  `./models/${objToRender}/scene.gltf`,
-  function (gltf) {
-    // If the file is loaded, add it to the scene
-    object = gltf.scene;
-    scene.add(object);
-
-    // Optional: center or scale the model if needed
-    object.position.set(0, -2, 0);
-  },
-  function (xhr) {
-    // While it is loading, log the progress
-    console.log((xhr.loaded / xhr.total * 100).toFixed(2) + "% loaded");
-  },
-  function (error) {
-    // If there is an error, log it
-    console.error("An error occurred while loading the model:", error);
-  }
-);
-
-// Instantiate a new renderer and set its size
-const renderer = new THREE.WebGLRenderer({ alpha: true }); // Alpha: true allows for the transparent background
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-
-// ✅ FIX: Correct selector syntax (needed a dot for class)
 document.querySelector(".container3D").appendChild(renderer.domElement);
 
-// Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "dino" ? 25 : 500;
-
-// Add lights to the scene
+// Lights
 const topLight = new THREE.DirectionalLight(0xffffff, 1);
-topLight.position.set(500, 500, 500); // top-left-ish
-topLight.castShadow = true;
+topLight.position.set(500, 500, 500);
 scene.add(topLight);
 
-const ambientLight = new THREE.AmbientLight(
-  0x333333,
-  objToRender === "dino" ? 5 : 1
-);
+const ambientLight = new THREE.AmbientLight(0x404040, 3);
 scene.add(ambientLight);
 
-// Add OrbitControls
-if (objToRender === "dino") {
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true; // smooth controls
-  controls.dampingFactor = 0.05;
+camera.position.set(0, 1, 8);
+
+// Controls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+// Model setup
+const loader = new GLTFLoader();
+const models = ["taube", "froggo"]; // 👉 Hier deine Modellnamen eintragen
+let currentIndex = 0;
+let currentModel = null;
+
+// Funktion zum Laden eines Modells
+function loadModel(name) {
+  if (currentModel) {
+    scene.remove(currentModel);
+    currentModel.traverse(obj => {
+      if (obj.geometry) obj.geometry.dispose();
+      if (obj.material) {
+        if (Array.isArray(obj.material)) {
+          obj.material.forEach(m => m.dispose());
+        } else obj.material.dispose();
+      }
+    });
+  }
+
+  loader.load(
+    `./models/${name}/scene.gltf`,
+    gltf => {
+      currentModel = gltf.scene;
+      currentModel.position.set(0, -1.5, 0);
+      scene.add(currentModel);
+      console.log(`Loaded: ${name}`);
+    },
+    xhr => console.log(`${(xhr.loaded / xhr.total * 100).toFixed(1)}% loaded`),
+    err => console.error("Error loading model:", err)
+  );
 }
 
-// Render the scene
+// Buttons
+document.getElementById("prevModel").addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + models.length) % models.length;
+  loadModel(models[currentIndex]);
+});
+
+document.getElementById("nextModel").addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % models.length;
+  loadModel(models[currentIndex]);
+});
+
+// Animation loop
 function animate() {
   requestAnimationFrame(animate);
-
-  // Optional: make the object slowly rotate
-  if (object) object.rotation.y += 0.005;
-
-  if (controls) controls.update();
+  if (currentModel) currentModel.rotation.y += 0.005;
+  controls.update();
   renderer.render(scene, camera);
 }
 
-// Adjust camera and renderer on window resize
+// Resize handling
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Start the 3D rendering
+// Start
+loadModel(models[currentIndex]);
 animate();
