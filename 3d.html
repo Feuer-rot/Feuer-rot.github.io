@@ -29,10 +29,13 @@
     </header>
     <main>
         <section id="threed">
-            <div class="container3D"></div>
-            <div class="controls3D">
-            <button id="prev">← Previous</button>
-            <button id="next">Next →</button>
+            <!-- <div class="model-wrapper">
+                <img>
+                <img>
+            </div> -->
+
+            <div class="container3D">
+                <spline-viewer url="https://prod.spline.design/8DmM-CnggLKYEbuY/scene.splinecode"></spline-viewer>
             </div>
 
         </section>
@@ -72,6 +75,7 @@
             </div>
         </div>  
     </footer>
-    <script type="module" src="js/app.js"></script>
+    <script src="js/app.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.80/build/spline-viewer.js"></script>
 </body>
 </html>
