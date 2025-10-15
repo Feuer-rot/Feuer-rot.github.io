@@ -120,15 +120,112 @@ document.addEventListener("DOMContentLoaded", () => {
 // THREE.JS 3D MODELS 
 // ____________________________
 
-// ____________________________
-// // THREE.JS 3D SLIDESHOW
-// ____________________________
+// import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
+// import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
+// import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
+
+// const scene = new THREE.Scene();
+// const camera = new THREE.PerspectiveCamera(
+//   75,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   1000
+// );
+// camera.position.set(0, 1, 3);
+
+
+// const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+// renderer.setSize(window.innerWidth, window.innerHeight);
+// renderer.setPixelRatio(window.devicePixelRatio);
+// document.querySelector(".container3D").appendChild(renderer.domElement);
+
+// // Lights
+// scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+
+// const dirLight = new THREE.DirectionalLight(0xffffff, 2);
+// dirLight.position.set(10, 10, 10);
+// scene.add(dirLight);
+
+// const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
+// hemiLight.position.set(0, 20, 0);
+// scene.add(hemiLight);
+
+
+// // Controls
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
+// controls.dampingFactor = 0.05;
+
+// // Model setup
+// const loader = new GLTFLoader();
+// const models = ["dino", "taube", "froggo"]; // 👉 Hier deine Modellnamen eintragen
+// let currentIndex = 0;
+// let currentModel = null;
+
+// // Funktion zum Laden eines Modells
+// function loadModel(name) {
+//   if (currentModel) {
+//     scene.remove(currentModel);
+//     currentModel.traverse(obj => {
+//       if (obj.geometry) obj.geometry.dispose();
+//       if (obj.material) {
+//         if (Array.isArray(obj.material)) {
+//           obj.material.forEach(m => m.dispose());
+//         } else obj.material.dispose();
+//       }
+//     });
+//   }
+
+//   loader.load(
+//     `./models/${name}/scene.gltf`,
+//     gltf => {
+//       currentModel = gltf.scene;
+//       currentModel.position.set(0, 0, 0);
+//       currentModel.scale.set(5, 5, 5); // vergrößert das Modell testweise
+
+//       scene.add(currentModel);
+//       console.log(`Loaded: ${name}`);
+//     },
+//     xhr => console.log(`${(xhr.loaded / xhr.total * 100).toFixed(1)}% loaded`),
+//     err => console.error("Error loading model:", err)
+//   );
+// }
+
+// // Buttons
+// document.getElementById("prevModel").addEventListener("click", () => {
+//   currentIndex = (currentIndex - 1 + models.length) % models.length;
+//   loadModel(models[currentIndex]);
+// });
+
+// document.getElementById("nextModel").addEventListener("click", () => {
+//   currentIndex = (currentIndex + 1) % models.length;
+//   loadModel(models[currentIndex]);
+// });
+
+// // Animation loop
+// function animate() {
+//   requestAnimationFrame(animate);
+//   if (currentModel) currentModel.rotation.y += 0.005;
+//   controls.update();
+//   renderer.render(scene, camera);
+// }
+
+// // Resize handling
+// window.addEventListener("resize", () => {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// });
+
+// // Start
+// loadModel(models[currentIndex]);
+// animate();
 
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
-import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
-import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x222222);
+
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -137,90 +234,25 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.set(0, 1, 3);
 
-
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
 document.querySelector(".container3D").appendChild(renderer.domElement);
 
-// Lights
-scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+// Licht
+const light = new THREE.DirectionalLight(0xffffff, 1.2);
+light.position.set(2, 2, 5);
+scene.add(light);
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 2);
-dirLight.position.set(10, 10, 10);
-scene.add(dirLight);
+// Einfache Test-Geometrie
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshStandardMaterial({ color: 0xff5533 });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.2);
-hemiLight.position.set(0, 20, 0);
-scene.add(hemiLight);
-
-
-// Controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
-
-// Model setup
-const loader = new GLTFLoader();
-const models = ["taube", "froggo"]; // 👉 Hier deine Modellnamen eintragen
-let currentIndex = 0;
-let currentModel = null;
-
-// Funktion zum Laden eines Modells
-function loadModel(name) {
-  if (currentModel) {
-    scene.remove(currentModel);
-    currentModel.traverse(obj => {
-      if (obj.geometry) obj.geometry.dispose();
-      if (obj.material) {
-        if (Array.isArray(obj.material)) {
-          obj.material.forEach(m => m.dispose());
-        } else obj.material.dispose();
-      }
-    });
-  }
-
-  loader.load(
-    `./models/${name}/scene.gltf`,
-    gltf => {
-      currentModel = gltf.scene;
-      currentModel.position.set(0, 0, 0);
-      currentModel.scale.set(5, 5, 5); // vergrößert das Modell testweise
-
-      scene.add(currentModel);
-      console.log(`Loaded: ${name}`);
-    },
-    xhr => console.log(`${(xhr.loaded / xhr.total * 100).toFixed(1)}% loaded`),
-    err => console.error("Error loading model:", err)
-  );
-}
-
-// Buttons
-document.getElementById("prevModel").addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + models.length) % models.length;
-  loadModel(models[currentIndex]);
-});
-
-document.getElementById("nextModel").addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % models.length;
-  loadModel(models[currentIndex]);
-});
-
-// Animation loop
 function animate() {
   requestAnimationFrame(animate);
-  if (currentModel) currentModel.rotation.y += 0.005;
-  controls.update();
+  cube.rotation.y += 0.01;
+  cube.rotation.x += 0.01;
   renderer.render(scene, camera);
 }
-
-// Resize handling
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// Start
-loadModel(models[currentIndex]);
 animate();
