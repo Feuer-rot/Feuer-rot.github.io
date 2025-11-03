@@ -2,13 +2,15 @@
 font-family: "Quicksand", sans-serif;
 scroll-behavior: smooth; 
 scroll-margin-top: 55px;
+font-weight: lighter;
 }
 
 header,
 header a,
 #welcome,
-#welcome i {
-    color: orange;
+#welcome i,
+#welcome h2 {
+    color: #EF7722;
 }
 
 
@@ -25,11 +27,11 @@ section {
 }
 
 .content {
-    background-color: lightyellow;
+    /* background-color: lightyellow; */
 }
 
-a {
-    color: inherit;
+a, h2 {
+    color: rgb(158, 1, 61);
 }
     /* ________________ */
     /* ----HEADER----- */
@@ -40,6 +42,7 @@ h1 {
     display: inline-block;
     margin: 8px auto 8px 5px;
     grid-area: h1;
+    margin-left: 10px;
 }
 
 h1 a {
@@ -53,8 +56,9 @@ header {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
         "h1 burger"
-        ". menu";
+        "menu menu";
     background-color: white;
+    z-index: 1;
 }
 
 .burger-menu {
@@ -74,21 +78,31 @@ header i {
 header li a {
     text-decoration: none;
     font-weight: 500;
+    color: whitesmoke;
+    text-wrap: nowrap;
 }
 
 header li {
     list-style-type: none;
     padding: 10px 10px;
     text-align: center;
+    border: 1px orange solid;
+    border-radius: 18px;
+    margin: 5px 0;
+}
+
+header li,
+footer {
+    background-color: darkorange;
 }
 
 header ul {
     display: none;
     grid-area: menu;
-    justify-self: end;
-    background: lightgrey;
+    justify-self: center;
     margin: 0;
     padding: 20px;
+    width: 50%;
 }
 
 header ul.open {
@@ -109,7 +123,7 @@ main {
     height: 59vh;
     margin: 0;
     padding: 30% 0;
-    
+    background-image: url("/images/Unbenanntes_Projekt.gif");
 }
 
 #welcome h2 {
@@ -206,7 +220,6 @@ main {
     padding: 15px;
     background: whitesmoke;
     border-radius: 7px;
-    text-align: center;
     box-shadow: 0px 0px 5px 2px rgba(55, 27, 27, 0.2);
     margin: 15px 0;
 }
@@ -221,7 +234,6 @@ main {
 
 .illu-text {
     padding: 15px;
-    align-self: center;
 }
 
 /*ANIMATION*/
@@ -264,9 +276,10 @@ main {
 /* 3D */
 
 .container3D {
-  width: 90%;
+  width: 70%;
   height: 70vh;
   margin: 119px auto 0;
+  display: block;
 }
 
 
@@ -279,7 +292,6 @@ footer {
     bottom: 0;
     width: 100%;
     height: 50px;
-    background-color: burlywood;
 }
 
 footer img {
@@ -290,7 +302,7 @@ footer img {
     display: flex;
     justify-content: space-between;
     width: 97%;
-    margin: 10px 0;
+    margin: 10px 0 0 10px;
 }
 
 .social-icons {
@@ -348,8 +360,8 @@ footer img {
       height: 20px;
       width: 20px;
       left: 3px;
-      bottom: 2px;
-      background-color: #f5664c;
+      bottom: 1px;
+      background-color: rgb(158, 1, 61);
       transition: 0.4s;
       border-radius: 50%;
     }
@@ -376,6 +388,10 @@ footer img {
     .burger-menu {
         display: none;
     }
+    
+    header {
+        grid-template-columns:  1fr 2fr;
+    }
 
     header ul {
         display: block;
@@ -385,6 +401,7 @@ footer img {
         display: flex;
         justify-content: space-around;
         padding: 10px;
+        width: 100%;
     }
     
     header li {
@@ -414,6 +431,7 @@ footer img {
     #about-me img {
         border-radius: 5px 0 0 5px;
         height: 100%;
+        align-self: center;
     }
 
     #welcome {
@@ -439,6 +457,11 @@ footer img {
     #welcome {
         height: 40vh;
         margin: 0 auto;
+    }
+
+    header {
+        grid-template-columns:  2fr 1fr;
+        max-width: 99%;
     }
 
     .illu-container .small-img {

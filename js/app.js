@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (arrow) arrow.href = "#work";
 
             if(aboutMe) aboutMe.innerHTML = `
-                <img src='images/profile-pic.webp' alt='Profile Picture of Mailin Knaak'>
+                <img src='images/profile_pic1.webp' alt='Profile Picture of Mailin Knaak'>
                 <p>Hi! I’m Mailin, an Illustration Student at HAW in Hamburg, a creative developer and digital artist with a love for all things visual and interactive.<br> I enjoy working where creativity meets technology— whether it's crafting 3D models, building smooth web interfaces, or bringing ideas to life through animation. I want to create things that invite curiosity — playful, visual, and a bit offbeat in all the right ways.<br><br>When I’m not in front of a screen, you’ll probably find me sketching, exploring new creative tools, or out on an outdoor adventure.</p>
             `;
            
@@ -79,9 +79,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (arrow) arrow.href = "animation.html";
 
             if(aboutMe) aboutMe.innerHTML = ` 
-                <img src='images/profile-pic.webp' alt='Profile Picture of Mailin Knaak'>
-                <p>Hi! I’m Mailin, an Illustration Student at HAW in Hamburg, a creative developer and digital artist with a love for all things visual and interactive.<br> I enjoy working where creativity meets technology— whether it's crafting 3D models, building smooth web interfaces, or bringing ideas to life through animation. I want to create things that invite curiosity — playful, visual, and a bit offbeat in all the right ways.<br><br>When I’m not in front of a screen, you’ll probably find me sketching, exploring new creative tools, or out on an outdoor adventure.</p><ul><p>Exhibitons:</p><br><li><a href='https://www.instagram.com/p/CbvE5FVNiA6/?utm_source=ig_web_copy_link&amp;igsh=MzRlODBiNWFlZA==' target='_blank'>Urban Apes Wall + Art </a>&nbsp;(all Urban Apes Locations) <em>since Feb 2022</em></li><li><a href='/illustration/'>'Feste Feiern!' (MK&amp;G, Hamburg)</a> <em>16.02.2024 - 19.01.2025</em></li></ul>
-            `;
+                <img src='images/profile_pic1.webp' alt='Profile Picture of Mailin Knaak'>
+                <p>Hi! I’m Mailin, an Illustration Student at HAW in Hamburg, a creative developer and digital artist with a love for all things visual and interactive.<br> I enjoy working where creativity meets technology— whether it's crafting 3D models, building smooth web interfaces, or bringing ideas to life through animation. I want to create things that invite curiosity — playful, visual, and a bit offbeat in all the right ways.<br><br>When I’m not in front of a screen, you’ll probably find me sketching, exploring new creative tools, or out on an outdoor adventure.</p><ul><p>Exhibitions:</p><br><li><a href="https://www.grand-elysee.com/kunst/galerie-im-elysee/" target="_blank">Wie aus Bildern Filme werden</a>&nbsp;(Galerie im Elysee) <em>23.09.-18.11.2025</em></li><li><a href="https://www.instagram.com/p/CbvE5FVNiA6/?utm_source=ig_web_copy_link&amp;igsh=MzRlODBiNWFlZA==" target="_blank">Urban Apes Wall + Art </a>&nbsp;(all Urban Apes Locations) <em>since Feb 2022</em></li><li><a href="/illustration/">'Feste Feiern!' (MK&amp;G, Hamburg)</a> <em>16.02.2024 - 19.01.2025</em></li></ul>
+             `;
         }
     });
 });
